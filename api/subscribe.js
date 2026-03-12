@@ -9,7 +9,7 @@ export default async function handler(req, res) {
 
   // Helper: call Upstash REST API
   async function redis(...args) {
-    const r = await fetch(`${REDIS_URL}`, {
+    const r = await fetch(REDIS_URL, {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${REDIS_TOKEN}`,
@@ -23,8 +23,13 @@ export default async function handler(req, res) {
 
   // GET — return current count
   if (req.method === 'GET') {
-    const count = await redis('SCARD', 'wl:emails');
-    return res.json({ count: count || 0 });
+    try {
+      const count = await redis('SCARD', 'wl:emails');
+      return res.json({ count: count || 0 });
+    } catch (e) {
+      console.error('[GET] Redis error:', e);
+      return res.json({ count: 0 });
+    }
   }
 
   // POST — save email, notify
@@ -36,33 +41,39 @@ export default async function handler(req, res) {
     }
 
     const trimmed = email.toLowerCase().trim();
+    console.log('[POST] New signup attempt:', trimmed);
 
-    // Add to Redis set (deduped automatically)
-    const added = await redis('SADD', 'wl:emails', trimmed);
-    const count = await redis('SCARD', 'wl:emails');
+    try {
+      const added = await redis('SADD', 'wl:emails', trimmed);
+      const count = await redis('SCARD', 'wl:emails');
+      console.log('[Redis] added:', added, '| total count:', count);
 
-    // Send email notification via Resend (only for new signups)
-    if (added === 1 && RESEND_KEY) {
-      await fetch('https://api.resend.com/emails', {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${RESEND_KEY}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          from: 'AI Handwriter <onboarding@resend.dev>',
-          to: ['boragonulus@gmail.com'],
-          subject: `🎉 New waitlist signup: ${trimmed}`,
-          html: `
-            <h2>New Waitlist Signup</h2>
-            <p><strong>Email:</strong> ${trimmed}</p>
-            <p><strong>Total signups:</strong> ${count}</p>
-          `,
-        }),
-      });
+      // Send Resend notification
+      if (RESEND_KEY) {
+        const emailRes = await fetch('https://api.resend.com/emails', {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${RESEND_KEY}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            from: 'onboarding@resend.dev',
+            to: ['boragonulus@gmail.com'],
+            subject: `New waitlist signup: ${trimmed}`,
+            html: `<h2>New Signup</h2><p><b>Email:</b> ${trimmed}</p><p><b>Total:</b> ${count}</p>`,
+          }),
+        });
+        const emailJson = await emailRes.json();
+        console.log('[Resend] status:', emailRes.status, '| response:', JSON.stringify(emailJson));
+      } else {
+        console.error('[Resend] RESEND_API_KEY is not set!');
+      }
+
+      return res.json({ success: true, count: count || 0 });
+    } catch (e) {
+      console.error('[POST] Error:', e);
+      return res.status(500).json({ error: 'Server error' });
     }
-
-    return res.json({ success: true, count: count || 0 });
   }
 
   return res.status(405).json({ error: 'Method not allowed' });
