@@ -51,7 +51,7 @@ export default async function handler(req, res) {
         },
         body: JSON.stringify({
           from: 'AI Handwriter <onboarding@resend.dev>',
-          to: ['boragonul@gmail.com'],
+          to: ['boragonulus@gmail.com'],
           subject: `🎉 New waitlist signup: ${trimmed}`,
           html: `
             <h2>New Waitlist Signup</h2>
