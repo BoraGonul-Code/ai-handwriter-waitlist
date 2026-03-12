@@ -273,7 +273,7 @@
     // Fetch current count on load
     async function loadCount() {
       try {
-        const res = await fetch('/api/subscribe');
+        const res = await fetch('/api/join');
         const data = await res.json();
         document.getElementById('counterNum').textContent = data.count ?? 0;
       } catch {
@@ -284,18 +284,18 @@
 
     // Submit handler
     async function handleJoin() {
-      const emailEl = document.getElementById('emailInput');
-      const errEl   = document.getElementById('errMsg');
-      const btn     = document.getElementById('joinBtn');
-      const email   = emailEl.value.trim();
+      const emailInput = document.getElementById('emailInput');
+      const errEl      = document.getElementById('errMsg');
+      const btn        = document.getElementById('joinBtn');
+      const email      = emailInput.value.trim();
 
       errEl.style.display = 'none';
-      emailEl.style.borderColor = '';
+      emailInput.style.borderColor = '';
 
       if (!email || !email.includes('@') || !email.includes('.')) {
         errEl.style.display = 'block';
-        emailEl.style.borderColor = '#ef4444';
-        emailEl.focus();
+        emailInput.style.borderColor = '#ef4444';
+        emailInput.focus();
         return;
       }
 
@@ -303,23 +303,29 @@
       btn.textContent = 'Joining...';
 
       try {
-        const res  = await fetch('/api/subscribe', {
+        const response = await fetch('/api/join', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ email })
         });
-        const data = await res.json();
+        const data = await response.json();
 
-        document.getElementById('formArea').style.display = 'none';
-        document.getElementById('successMsg').style.display = 'block';
-        if (data.count !== undefined) {
-          document.getElementById('counterNum').textContent = data.count;
+        if (response.ok) {
+          // Success State
+          document.getElementById('formArea').style.display = 'none';
+          document.getElementById('successMsg').style.display = 'block';
+          if (data.count !== undefined) {
+            document.getElementById('counterNum').textContent = data.count;
+          }
+        } else {
+          throw new Error(data.error || 'Failed');
         }
-      } catch {
+      } catch (err) {
         btn.disabled = false;
         btn.textContent = 'Join Waitlist';
         errEl.textContent = 'Something went wrong. Please try again.';
         errEl.style.display = 'block';
+        console.error("Error:", err);
       }
     }
 
