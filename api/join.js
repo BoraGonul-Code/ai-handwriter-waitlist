@@ -47,11 +47,12 @@ export default async function handler(req, res) {
       // 1. Save to Redis (Deduplicated)
       const added = await redis('SADD', 'wl:emails', trimmed);
       const count = await redis('SCARD', 'wl:emails');
+      console.log(`[Join] Email: ${trimmed} | Added: ${added} | Total: ${count}`);
 
-      // Only send emails if this is a NEW signup (added === 1)
-      if (added === 1 && RESEND_API_KEY) {
+      if (RESEND_API_KEY) {
         // 2. Welcome Email to User
-        await fetch('https://api.resend.com/emails', {
+        console.log('[Resend] Sending welcome email...');
+        const welcomeRes = await fetch('https://api.resend.com/emails', {
           method: 'POST',
           headers: {
             Authorization: `Bearer ${RESEND_API_KEY}`,
@@ -64,9 +65,12 @@ export default async function handler(req, res) {
             html: `<h1>Welcome to InklyFlow!</h1><p>Hey student! You've successfully joined the waitlist. We'll notify you soon.</p>`
           }),
         });
+        const welcomeJson = await welcomeRes.json();
+        console.log('[Resend Welcome Response]', welcomeRes.status, JSON.stringify(welcomeJson));
 
         // 3. Notification Email to Admin
-        await fetch('https://api.resend.com/emails', {
+        console.log('[Resend] Sending admin notification...');
+        const adminRes = await fetch('https://api.resend.com/emails', {
           method: 'POST',
           headers: {
             Authorization: `Bearer ${RESEND_API_KEY}`,
@@ -79,6 +83,10 @@ export default async function handler(req, res) {
             html: `<p>A new student just joined: <b>${trimmed}</b></p><p>Total signups: ${count}</p>`
           }),
         });
+        const adminJson = await adminRes.json();
+        console.log('[Resend Admin Response]', adminRes.status, JSON.stringify(adminJson));
+      } else {
+        console.error('[Resend Error] No API Key found in process.env.RESEND_API_KEY');
       }
 
       return res.status(200).json({ success: true, count: count || 0 });
