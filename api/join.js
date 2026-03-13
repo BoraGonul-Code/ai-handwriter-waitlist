@@ -65,7 +65,7 @@ export default async function handler(req, res) {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            from: 'InklyFlow AI <welcome@send.inklyflowai.me>',
+            from: 'InklyFlow AI <welcome@inklyflowai.me>',
             to: [trimmed],
             subject: 'You are on the list! ✍️',
             html: `<h1>Welcome to InklyFlow!</h1><p>Hey student! You've successfully joined the waitlist. We'll notify you soon.</p>`
@@ -83,7 +83,7 @@ export default async function handler(req, res) {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            from: 'System <notifications@send.inklyflowai.me>',
+            from: 'System <notifications@inklyflowai.me>',
             to: ['boragonulus@gmail.com'],
             subject: '🚀 New Waitlist Signup!',
             html: `<p>A new student just joined: <b>${trimmed}</b></p><p>Total signups: ${count}</p>`
