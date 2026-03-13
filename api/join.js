@@ -7,9 +7,14 @@ export default async function handler(req, res) {
   const REDIS_TOKEN = process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN;
   const RESEND_API_KEY = process.env.RESEND_API_KEY;
 
+  console.log('[Init] RESEND_API_KEY exists:', !!RESEND_API_KEY);
+
   // Helper: call Upstash REST API
   async function redis(...args) {
-    if (!REDIS_URL || !REDIS_TOKEN) return null;
+    if (!REDIS_URL || !REDIS_TOKEN) {
+      console.error('[Redis Error] Missing environment variables');
+      return null;
+    }
     try {
       const r = await fetch(REDIS_URL, {
         method: 'POST',
@@ -36,6 +41,7 @@ export default async function handler(req, res) {
   // POST — save email, send welcome, notify admin
   if (req.method === 'POST') {
     const { email } = req.body || {};
+    console.log('[POST] Payload:', JSON.stringify(req.body));
 
     if (!email || !email.includes('@')) {
       return res.status(400).json({ error: 'Please enter a valid email!' });
@@ -51,7 +57,7 @@ export default async function handler(req, res) {
 
       if (RESEND_API_KEY) {
         // 2. Welcome Email to User
-        console.log('[Resend] Sending welcome email...');
+        console.log('[Resend] Attempting Welcome email...');
         const welcomeRes = await fetch('https://api.resend.com/emails', {
           method: 'POST',
           headers: {
@@ -66,10 +72,10 @@ export default async function handler(req, res) {
           }),
         });
         const welcomeJson = await welcomeRes.json();
-        console.log('[Resend Welcome Response]', welcomeRes.status, JSON.stringify(welcomeJson));
+        console.log('[Resend Welcome Output]', welcomeRes.status, JSON.stringify(welcomeJson));
 
         // 3. Notification Email to Admin
-        console.log('[Resend] Sending admin notification...');
+        console.log('[Resend] Attempting Admin notification...');
         const adminRes = await fetch('https://api.resend.com/emails', {
           method: 'POST',
           headers: {
@@ -84,9 +90,9 @@ export default async function handler(req, res) {
           }),
         });
         const adminJson = await adminRes.json();
-        console.log('[Resend Admin Response]', adminRes.status, JSON.stringify(adminJson));
+        console.log('[Resend Admin Output]', adminRes.status, JSON.stringify(adminJson));
       } else {
-        console.error('[Resend Error] No API Key found in process.env.RESEND_API_KEY');
+        console.error('[Resend Error] RESEND_API_KEY is undefined');
       }
 
       return res.status(200).json({ success: true, count: count || 0 });
