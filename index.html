@@ -1,337 +1,243 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>InklyFlow AI – Early Access</title>
-  <meta name="description" content="Turn typed PDF homework into realistic AI handwriting. Join the early access waitlist." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet" />
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+<!DOCTYPE HTML>
+<!--
+	Alpha by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>InklyFlow AI – Early Access</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<style>
+			#cta .row > div {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+			.success-message {
+				display: none;
+				text-align: center;
+				padding: 2em;
+				background: rgba(255, 255, 255, 0.05);
+				border-radius: 8px;
+				margin-top: 1em;
+			}
+			.success-message h2 {
+				color: #e89980;
+			}
+			.counter {
+				margin-top: 2em;
+				font-size: 0.9em;
+				opacity: 0.7;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				gap: 10px;
+			}
+			.dot-live {
+				width: 8px;
+				height: 8px;
+				background: #4ade80;
+				border-radius: 50%;
+				display: inline-block;
+				animation: blink 2s infinite;
+			}
+			@keyframes blink {
+				0% { opacity: 0.2; }
+				50% { opacity: 1; }
+				100% { opacity: 0.2; }
+			}
+		</style>
+	</head>
+	<body class="landing is-preload">
+		<div id="page-wrapper">
 
-    body {
-      font-family: 'Inter', sans-serif;
-      background: #09090f;
-      color: #e2e8f0;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
+			<!-- Header -->
+				<header id="header" class="alt">
+					<h1><a href="index.html">InklyFlow AI</a></h1>
+					<nav id="nav">
+						<ul>
+							<li><a href="index.html">Home</a></li>
+							<li><a href="#cta" class="button">Early Access</a></li>
+						</ul>
+					</nav>
+				</header>
 
-    /* NAV */
-    nav {
-      padding: 20px 32px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border-bottom: 1px solid rgba(255,255,255,.06);
-    }
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .logo img { height: 34px; width: 34px; border-radius: 8px; object-fit: contain; }
-    .logo span { font-family: 'Caveat', cursive; font-size: 1.3rem; font-weight: 700; color: #a78bfa; }
-    .badge {
-      font-size: 11px; font-weight: 700; letter-spacing: .07em;
-      background: rgba(124,58,237,.2); color: #c4b5fd;
-      border: 1px solid rgba(124,58,237,.3);
-      padding: 4px 12px; border-radius: 20px;
-    }
+			<!-- Banner -->
+				<section id="banner">
+					<h2>InklyFlow AI</h2>
+					<p>Turn your typed PDF homework into realistic AI handwriting.</p>
+					<ul class="actions special">
+						<li><a href="#cta" class="button primary">Join Waitlist</a></li>
+						<li><a href="#main" class="button">Learn More</a></li>
+					</ul>
+				</section>
 
-    /* HERO */
-    .hero {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 80px 24px;
-      max-width: 680px;
-      margin: 0 auto;
-      width: 100%;
-    }
+			<!-- Main -->
+				<section id="main" class="container">
 
-    h1 {
-      font-size: clamp(2.4rem, 6vw, 4rem);
-      font-weight: 800;
-      line-height: 1.1;
-      letter-spacing: -.03em;
-      margin-bottom: 6px;
-      color: #f1f5f9;
-    }
+					<section class="box special">
+						<header class="major">
+							<h2>InklyFlow AI,
+							<br />
+							perfectly handwritten.</h2>
+							<p>The ultimate AI homework solver that writes back in your natural handwriting.<br />
+							Neural SVG strokes — not a font. Each letter flows naturally.</p>
+						</header>
+						<span class="image featured"><img src="images/pic01.jpg" alt="" /></span>
+					</section>
 
-    .h1-cursive {
-      font-family: 'Caveat', cursive;
-      font-size: clamp(2.2rem, 5.5vw, 3.6rem);
-      font-weight: 700;
-      color: #a78bfa;
-      display: block;
-      margin-bottom: 20px;
-    }
+					<section class="box special features">
+						<div class="features-row">
+							<section>
+								<span class="icon solid major fa-bolt accent2"></span>
+								<h3>AI Answers</h3>
+								<p>Llama-3 reads the question and writes a concise answer tailored to your style.</p>
+							</section>
+							<section>
+								<span class="icon solid major fa-pen accent3"></span>
+								<h3>Real Handwriting</h3>
+								<p>Advanced neural networks generate custom strokes that look indistinguishable from human writing.</p>
+							</section>
+						</div>
+						<div class="features-row">
+							<section>
+								<span class="icon solid major fa-file-pdf accent4"></span>
+								<h3>PDF Output</h3>
+								<p>Upload your assignment, and download a filled-in PDF ready to be submitted.</p>
+							</section>
+							<section>
+								<span class="icon solid major fa-lock accent5"></span>
+								<h3>Secure & Private</h3>
+								<p>Your data and handwriting samples are encrypted and never shared. Your privacy is our priority.</p>
+							</section>
+						</div>
+					</section>
 
-    .subtitle {
-      font-size: 1.05rem;
-      color: #64748b;
-      line-height: 1.7;
-      margin-bottom: 48px;
-      max-width: 460px;
-    }
+				</section>
 
-    /* FORM */
-    .form-wrap {
-      width: 100%;
-      max-width: 460px;
-    }
+			<!-- CTA -->
+				<section id="cta">
 
-    .input-row {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 14px;
-    }
+					<h2>Join the Early Access</h2>
+					<p>Be the first to know when we launch and get exclusive early access.</p>
 
-    .email-input {
-      flex: 1;
-      background: rgba(255,255,255,.06);
-      border: 1px solid rgba(255,255,255,.1);
-      border-radius: 10px;
-      padding: 13px 16px;
-      color: #f1f5f9;
-      font-family: 'Inter', sans-serif;
-      font-size: 15px;
-      outline: none;
-      transition: border-color .2s, box-shadow .2s;
-    }
-    .email-input::placeholder { color: #334155; }
-    .email-input:focus {
-      border-color: rgba(124,58,237,.6);
-      box-shadow: 0 0 0 3px rgba(124,58,237,.15);
-    }
+					<div id="form-container">
+						<form id="waitlist-form">
+							<div class="row gtr-50 gtr-uniform">
+								<div class="col-8 col-12-mobilep">
+									<input type="email" name="email" id="emailInput" placeholder="Email Address" required />
+								</div>
+								<div class="col-4 col-12-mobilep">
+									<button type="button" id="joinBtn" class="fit" onclick="handleJoin()">Sign Up</button>
+								</div>
+							</div>
+							<p id="errMsg" style="color: #ff8b8b; display: none; margin-top: 10px;">Please enter a valid email address.</p>
+						</form>
+					</div>
 
-    .join-btn {
-      background: #7c3aed;
-      color: white;
-      border: none;
-      border-radius: 10px;
-      padding: 13px 22px;
-      font-family: 'Inter', sans-serif;
-      font-size: 14px;
-      font-weight: 700;
-      cursor: pointer;
-      white-space: nowrap;
-      transition: background .15s, transform .1s;
-    }
-    .join-btn:hover { background: #6d28d9; }
-    .join-btn:active { transform: scale(.97); }
-    .join-btn:disabled { opacity: .6; cursor: not-allowed; }
+					<div id="successMsg" class="success-message">
+						<h2>🎉 You're on the list!</h2>
+						<p>We'll email you when early access opens.</p>
+					</div>
 
-    /* COUNTER */
-    .counter {
-      font-size: 13px;
-      color: #475569;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-    }
-    .counter-num { color: #a78bfa; font-weight: 700; font-size: 14px; }
-    .dot-live {
-      width: 7px; height: 7px;
-      border-radius: 50%;
-      background: #22c55e;
-      display: inline-block;
-      animation: blink 2s ease-in-out infinite;
-    }
-    @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: .2; } }
+					<div class="counter">
+						<span class="dot-live"></span>
+						<span id="counterNum">0</span> people on the waitlist
+					</div>
 
-    /* SUCCESS */
-    .success {
-      display: none;
-      background: rgba(34,197,94,.08);
-      border: 1px solid rgba(34,197,94,.25);
-      border-radius: 12px;
-      padding: 18px 24px;
-      margin-bottom: 14px;
-      text-align: center;
-    }
-    .success p:first-child { font-weight: 700; color: #86efac; margin-bottom: 4px; }
-    .success p:last-child { font-size: 13px; color: #4ade80; opacity: .8; }
+				</section>
 
-    /* ERROR */
-    .err-msg { font-size: 12px; color: #f87171; margin-top: -8px; margin-bottom: 10px; display: none; }
+			<!-- Footer -->
+				<footer id="footer">
+					<ul class="icons">
+						<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+						<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+						<li><a href="#" class="icon brands fa-github"><span class="label">Github</span></a></li>
+					</ul>
+					<ul class="copyright">
+						<li>&copy; InklyFlow AI. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+					</ul>
+				</footer>
 
-    /* FEATURES */
-    .features {
-      display: flex;
-      gap: 24px;
-      justify-content: center;
-      margin-top: 56px;
-      flex-wrap: wrap;
-    }
-    .feat {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      max-width: 180px;
-      text-align: left;
-    }
-    .feat-icon { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
-    .feat-text strong { display: block; font-size: 13px; font-weight: 600; color: #cbd5e1; margin-bottom: 2px; }
-    .feat-text span { font-size: 12px; color: #475569; line-height: 1.5; }
+		</div>
 
-    /* FOOTER */
-    footer {
-      text-align: center;
-      padding: 24px;
-      font-size: 12px;
-      color: #1e293b;
-      border-top: 1px solid rgba(255,255,255,.04);
-    }
-    footer a { color: #7c3aed; text-decoration: none; }
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.dropotron.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
 
-    @media (max-width: 480px) {
-      .input-row { flex-direction: column; }
-      .features { flex-direction: column; align-items: center; }
-      .feat { max-width: 100%; }
-    }
-  </style>
-</head>
-<body>
+			<script>
+				// Fetch current count on load
+				async function loadCount() {
+				  try {
+					const res = await fetch('/api/join');
+					const data = await res.json();
+					document.getElementById('counterNum').textContent = data.count ?? 0;
+				  } catch {
+					document.getElementById('counterNum').textContent = '0';
+				  }
+				}
+				loadCount();
+			
+				// Submit handler
+				async function handleJoin() {
+				  const emailInput = document.getElementById('emailInput');
+				  const errEl      = document.getElementById('errMsg');
+				  const btn        = document.getElementById('joinBtn');
+				  const email      = emailInput.value.trim();
+			
+				  errEl.style.display = 'none';
+			
+				  if (!email || !email.includes('@') || !email.includes('.')) {
+					errEl.style.display = 'block';
+					emailInput.focus();
+					return;
+				  }
+			
+				  btn.disabled = true;
+				  btn.textContent = 'Joining...';
+			
+				  try {
+					const response = await fetch('/api/join', {
+					  method: 'POST',
+					  headers: { 'Content-Type': 'application/json' },
+					  body: JSON.stringify({ email })
+					});
+					const data = await response.json();
+			
+					if (response.ok) {
+					  // Success State
+					  document.getElementById('form-container').style.display = 'none';
+					  document.getElementById('successMsg').style.display = 'block';
+					  if (data.count !== undefined) {
+						document.getElementById('counterNum').textContent = data.count;
+					  }
+					} else {
+					  throw new Error(data.error || 'Failed');
+					}
+				  } catch (err) {
+					btn.disabled = false;
+					btn.textContent = 'Sign Up';
+					errEl.textContent = 'Something went wrong. Please try again.';
+					errEl.style.display = 'block';
+					console.error("Error:", err);
+				  }
+				}
+			
+				document.getElementById('emailInput').addEventListener('keydown', e => {
+				  if (e.key === 'Enter') {
+					e.preventDefault();
+					handleJoin();
+				  }
+				});
+			  </script>
 
-  <nav>
-    <div class="logo">
-      <img src="logo.png" alt="InklyFlow AI" />
-      <span>InklyFlow AI</span>
-    </div>
-    <span class="badge">EARLY ACCESS</span>
-  </nav>
-
-  <main class="hero">
-
-    <h1>InklyFlow AI,</h1>
-    <span class="h1-cursive">perfectly handwritten.</span>
-
-    <p class="subtitle">
-      The ultimate AI homework solver that writes back in your natural handwriting. Join the early access.
-    </p>
-
-    <div class="form-wrap">
-      <div class="success" id="successMsg">
-        <p>🎉 You're on the list!</p>
-        <p>We'll email you when early access opens.</p>
-      </div>
-
-      <div id="formArea">
-        <div class="input-row">
-          <input type="email" id="emailInput" class="email-input" placeholder="your@email.com" autocomplete="email" />
-          <button class="join-btn" id="joinBtn" onclick="handleJoin()">Join Waitlist</button>
-        </div>
-        <p class="err-msg" id="errMsg">Please enter a valid email address.</p>
-      </div>
-
-      <div class="counter">
-        <span class="dot-live"></span>
-        <span class="counter-num" id="counterNum">0</span>
-        <span>people on the waitlist</span>
-      </div>
-    </div>
-
-    <div class="features">
-      <div class="feat">
-        <span class="feat-icon">🤖</span>
-        <div class="feat-text">
-          <strong>AI Answers</strong>
-          <span>Llama-3 reads the question and writes a concise answer.</span>
-        </div>
-      </div>
-      <div class="feat">
-        <span class="feat-icon">✍️</span>
-        <div class="feat-text">
-          <strong>Real Handwriting</strong>
-          <span>Neural SVG strokes — not a font. Each letter flows naturally.</span>
-        </div>
-      </div>
-      <div class="feat">
-        <span class="feat-icon">📄</span>
-        <div class="feat-text">
-          <strong>PDF Output</strong>
-          <span>Download a filled-in PDF ready to submit.</span>
-        </div>
-      </div>
-    </div>
-
-  </main>
-
-  <footer>
-    © 2026 InklyFlow AI · <a href="mailto:boragonulus@gmail.com">boragonulus@gmail.com</a>
-  </footer>
-
-  <script>
-    // Fetch current count on load
-    async function loadCount() {
-      try {
-        const res = await fetch('/api/join');
-        const data = await res.json();
-        document.getElementById('counterNum').textContent = data.count ?? 0;
-      } catch {
-        document.getElementById('counterNum').textContent = '0';
-      }
-    }
-    loadCount();
-
-    // Submit handler
-    async function handleJoin() {
-      const emailInput = document.getElementById('emailInput');
-      const errEl      = document.getElementById('errMsg');
-      const btn        = document.getElementById('joinBtn');
-      const email      = emailInput.value.trim();
-
-      errEl.style.display = 'none';
-      emailInput.style.borderColor = '';
-
-      if (!email || !email.includes('@') || !email.includes('.')) {
-        errEl.style.display = 'block';
-        emailInput.style.borderColor = '#ef4444';
-        emailInput.focus();
-        return;
-      }
-
-      btn.disabled = true;
-      btn.textContent = 'Joining...';
-
-      try {
-        const response = await fetch('/api/join', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email })
-        });
-        const data = await response.json();
-
-        if (response.ok) {
-          // Success State
-          document.getElementById('formArea').style.display = 'none';
-          document.getElementById('successMsg').style.display = 'block';
-          if (data.count !== undefined) {
-            document.getElementById('counterNum').textContent = data.count;
-          }
-        } else {
-          throw new Error(data.error || 'Failed');
-        }
-      } catch (err) {
-        btn.disabled = false;
-        btn.textContent = 'Join Waitlist';
-        errEl.textContent = 'Something went wrong. Please try again.';
-        errEl.style.display = 'block';
-        console.error("Error:", err);
-      }
-    }
-
-    document.getElementById('emailInput').addEventListener('keydown', e => {
-      if (e.key === 'Enter') handleJoin();
-    });
-  </script>
-</body>
+	</body>
 </html>
